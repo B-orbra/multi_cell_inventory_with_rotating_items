@@ -47,7 +47,7 @@ func do_rotation() -> void:
 	data.is_rotated = !data.is_rotated
 	data.dimentions = Vector2i(data.dimentions.y, data.dimentions.x)
 	var tween = create_tween()
-	tween.tween_property(self, "rotation_degrees", 90 if data.is_rotated else 0, 2.0)
+	tween.tween_property(self, "rotation_degrees", 90 if data.is_rotated else 0, .1)
 	await tween.finished
 	tween.kill()
 	anchor_point = global_position - size / 2

@@ -1,50 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://daaum4ah488qx"]
+[gd_scene load_steps=5 format=3 uid="uid://daaum4ah488qx"]
 
 [ext_resource type="Script" uid="uid://c7pra6caa2qyu" path="res://scripts/item_grid.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://c27tjuubothmh" path="res://scripts/inventory.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://btnqd3waxpl6l" path="res://scenes/inventory_slot.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://b43vbcqhnboih" path="res://scenes/inventory_item.tscn" id="2_jyhfs"]
-[ext_resource type="Script" uid="uid://dxbdk6rbe1lcc" path="res://resources/item_data.gd" id="2_tefeu"]
-[ext_resource type="Texture2D" uid="uid://oqucs0t6q2c8" path="res://assets/item_5.png" id="3_o6xl0"]
-[ext_resource type="Texture2D" uid="uid://bmrn1bjd27j2a" path="res://assets/item_4.png" id="4_o6xl0"]
-[ext_resource type="Texture2D" uid="uid://c4mou86mkd6rj" path="res://assets/item_3.png" id="5_choun"]
-[ext_resource type="Texture2D" uid="uid://beof1qret8fje" path="res://assets/item_2.png" id="6_ya4ey"]
-[ext_resource type="Texture2D" uid="uid://erpneexqpa6c" path="res://assets/item_1.png" id="7_eb6dy"]
-
-[sub_resource type="Resource" id="Resource_tefeu"]
-script = ExtResource("2_tefeu")
-name = "qwer"
-texture = ExtResource("3_o6xl0")
-dimentions = Vector2i(2, 2)
-metadata/_custom_type_script = "uid://dxbdk6rbe1lcc"
-
-[sub_resource type="Resource" id="Resource_tipki"]
-script = ExtResource("2_tefeu")
-name = "asdfe"
-texture = ExtResource("4_o6xl0")
-dimentions = Vector2i(2, 1)
-metadata/_custom_type_script = "uid://dxbdk6rbe1lcc"
-
-[sub_resource type="Resource" id="Resource_trceg"]
-script = ExtResource("2_tefeu")
-name = ""
-texture = ExtResource("5_choun")
-dimentions = Vector2i(1, 1)
-metadata/_custom_type_script = "uid://dxbdk6rbe1lcc"
-
-[sub_resource type="Resource" id="Resource_a8y0u"]
-script = ExtResource("2_tefeu")
-name = ""
-texture = ExtResource("6_ya4ey")
-dimentions = Vector2i(1, 1)
-metadata/_custom_type_script = "uid://dxbdk6rbe1lcc"
-
-[sub_resource type="Resource" id="Resource_jkv2x"]
-script = ExtResource("2_tefeu")
-name = ""
-texture = ExtResource("7_eb6dy")
-dimentions = Vector2i(1, 2)
-metadata/_custom_type_script = "uid://dxbdk6rbe1lcc"
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -69,7 +28,6 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sugp2")
-items = Array[ExtResource("2_tefeu")]([SubResource("Resource_tefeu"), SubResource("Resource_tipki"), SubResource("Resource_trceg"), SubResource("Resource_a8y0u"), SubResource("Resource_jkv2x")])
 inventory_item_scene = ExtResource("2_jyhfs")
 
 [node name="ItemGrid" type="GridContainer" parent="Inventory"]

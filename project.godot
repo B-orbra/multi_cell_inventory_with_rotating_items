@@ -1,26 +1,19 @@
-; Engine configuration file.
-; It's best edited using the editor UI and not directly,
-; since the parameters that go here are not all obvious.
-;
-; Format:
-;   [section] ; section goes between []
-;   param=value ; assign values to parameters
-
 config_version=5
 
 [application]
 
-config/name="multicell_inventory"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/name="multi_cell_inventory"
+run/main_scene="uid://daaum4ah488qx"
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=270
-window/size/mode=3
+window/size/viewport_width=1000
+window/size/viewport_height=1000
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/stretch/scale=6.0
 
 [rendering]
 

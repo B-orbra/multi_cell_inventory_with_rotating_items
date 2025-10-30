@@ -1,24 +1,47 @@
 extends GridContainer
 
-const SLOT_SIZE: int = 16
+const SLOT_SIZE: int = 32
+## Scene that represents the apearance of the inventory slots
 @export var inventory_slot_scene: PackedScene
+## Vector2i that represents the horizantal and vertical quantity of inventory slots
 @export var dimentions: Vector2i
 var slot_data: Array[Node] = []
 var held_item_intersects: bool = false
+
+## Vars for debuggin
+var grid_global_positions: Array[Vector2i]
+@export var slot_label: Label = null
+
 func _ready() -> void:
 	create_slots()
 	init_slot_data()
 
-
+## Initializ the inventory_slot once for each dimention.x and dimention.y[br]
+## The location of each initialized scene is handled by the editor and not progamatically
 func create_slots() -> void:
 	self.columns = dimentions.x
 	for y in dimentions.y:
 		for x in dimentions.x:
-			var inventory_slot = inventory_slot_scene.instantiate()
+			print(y, x)
+			grid_global_positions.push_back(Vector2i(y * (SLOT_SIZE / 2), (x + 1) * (SLOT_SIZE / 2)))
+			print(grid_global_positions)
+			var inventory_slot: Node = inventory_slot_scene.instantiate()
 			add_child(inventory_slot)
 
+func init_slot_data() -> void:
+	slot_data.resize(dimentions.x * dimentions.y)
+	slot_data.fill(null)
+
+func get_coords_from_slot_index(index: int) -> Vector2i:
+	var row = index / columns
+	var column = index % columns
+	#print(row, column)
+	#print(Vector2i(global_position) + Vector2i(column * SLOT_SIZE, row * SLOT_SIZE))
+	return Vector2i(global_position) + Vector2i(column * SLOT_SIZE, row * SLOT_SIZE)
+
+## Handles the mouse inputs
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton: ## 
 		if event.button_index == MOUSE_BUTTON_LEFT && event.is_pressed():
 			var held_item = get_tree().get_first_node_in_group("held_item")
 			if !held_item:
@@ -47,8 +70,17 @@ func _gui_input(event: InputEvent) -> void:
 		var held_item = get_tree().get_first_node_in_group("held_item")
 		if held_item:
 			detect_held_item_intersection(held_item)
-				
+			
 
+func get_slot_index_from_coords(coords: Vector2i) -> int:
+	coords -= Vector2i(self.global_position)
+	coords = coords / SLOT_SIZE
+	var index = coords.x + coords.y * columns
+	if index > dimentions.x * dimentions.y || index < 0:
+		return - 1
+	return index
+
+## some text 
 func detect_held_item_intersection(held_item: Node) -> void:
 	var h_rect = Rect2(held_item.anchor_point, held_item.size)
 	var g_rect = Rect2(global_position, size)
@@ -78,10 +110,6 @@ func items_in_area(index: int, item_dimentions: Vector2i) -> Array:
 	return items.keys() if items.size() else []
 
 
-func init_slot_data() -> void:
-	slot_data.resize(dimentions.x * dimentions.y)
-	slot_data.fill(null)
-
 func attempt_to_add_item_data(item: Node) -> bool:
 	var slot_index: int = 0
 	while slot_index < slot_data.size():
@@ -110,17 +138,3 @@ func item_fits(index: int, dimentions: Vector2i) -> bool:
 			if split:
 				return false
 	return true
-			
-
-func get_slot_index_from_coords(coords: Vector2i) -> int:
-	coords -= Vector2i(self.global_position)
-	coords = coords / SLOT_SIZE
-	var index = coords.x + coords.y * columns
-	if index > dimentions.x * dimentions.y || index < 0:
-		return - 1
-	return index
-
-func get_coords_from_slot_index(index: int) -> Vector2i:
-	var row = index / columns
-	var column = index % columns
-	return Vector2i(global_position) + Vector2i(column * SLOT_SIZE, row * SLOT_SIZE)
